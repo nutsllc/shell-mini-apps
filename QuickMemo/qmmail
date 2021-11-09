@@ -1,0 +1,13 @@
+#!/bin/bash
+
+function _send_mail_quick_memo() {
+    [ -z $1 ] && echo "need e-mail address to send email." && exit 1
+
+    SELF=$(cd $(dirname $0); pwd)
+    local subject="Quick Memo ($(date))"
+    cat ${SELF}/.data/quick_memo.md | mail -s "${subject}" "$1"
+    echo "e-mail (quick memo) has been sent to $1"
+}
+
+_send_mail_quick_memo $@
+exit 0

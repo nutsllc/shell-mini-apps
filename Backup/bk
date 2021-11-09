@@ -1,0 +1,13 @@
+#!/bin/bash
+
+function _create_backup_file() {
+    [ $# -ne 1 ] && echo 'no file/dir' && return
+    [ ! -e $(basename $1) ] && echo 'no file/dir' && return
+    #cp -r ${1} ${1}.bk
+    local bk_name="bk_$(date '+%Y%m%d')_$(basename $1).tar.gz"
+    tar czf ${bk_name} $1
+    echo "backed up. ($1 >>> ${bk_name})"
+}
+
+_create_backup_file $@
+exit 0

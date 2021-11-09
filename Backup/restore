@@ -1,0 +1,15 @@
+#!/bin/bash
+
+function _restore_backup_file() {
+    local strip=$(echo $1 | sed -e 's/\.tar\.gz$//g')
+
+    [ $# -ne 1 ] && echo 'no file/dir' && return
+    [ ! -e $1 ] && [ ! -e ${strip}.tar.gz ] && echo 'no file/dir' && return
+
+    local target=$(echo $1 | sed 's/\.tar\.gz//g')
+    tar xzf ${strip}.tar.gz
+    echo "Restored. ($1)"
+}
+
+_restore_backup_file $@
+exit 0
