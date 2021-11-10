@@ -1,0 +1,24 @@
+#!/bin/bash
+
+SELF=$(cd $(dirname $0); pwd)
+
+dirmarks="${SELF}/.data"
+mkdir -p ${dirmarks}
+
+function _dirmarks() {
+    case $1 in
+        mark )
+            pwd > ${dirmarks}/${2}${2}
+            echo 'markd!'
+            return 0
+            ;;
+        jump )
+            [ -f ${dirmarks}/${2}${2} ] && {
+                cat ${dirmarks}/${2}${2}
+                cd $(cat ${dirmarks}/${2}${2})
+            } || echo "not set."
+            return 0
+            ;;
+    esac
+}
+

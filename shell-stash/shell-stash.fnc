@@ -17,9 +17,8 @@ function _usage() {
 }
 
 function _shell_stash() {
-    SELF=$(cd $(dirname $0); pwd)
     #local stashDir=${DOTPATH}/.ShellStash
-    local stashDir=${SELF}/.stash
+    local stashDir=${HOME}/.shell-stash
     mkdir -p ${stashDir}
 
     [ ${#@} -eq 0 ] && {
@@ -62,7 +61,7 @@ function _shell_stash() {
 #    echo "arg[2]: ${arg[2]}"
 #    echo "mvORcp: ${mvORcp}"
 
-    case ${arg[0]} in
+    case ${arg[1]} in
         e | empty )
             rm -rf ${stashDir} && echo "empty shell stash."
             return 0
@@ -89,7 +88,7 @@ function _shell_stash() {
                 echo "pop: $(basename ${target})"
             }
             ;;
-        a | popall )
+        a | all )
             mv ${stashDir}/* .
             echo "pop all file/directory"
             return 0
@@ -120,6 +119,4 @@ function _shell_stash() {
             ;;
     esac
 }
-
-_shell_stash $@
-exit 0
+alias ss='_shell_stash'

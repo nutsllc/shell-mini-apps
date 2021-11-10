@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -Ceu
+
+function _wttr() {
+    #curl -s wttr.in/${1:-Tokyo}?lang=ja | head -n 7
+    curl -s wttr.in/${1:-Tokyo} | head -n 7
+}
+
+_wttr $@
+exit 0
